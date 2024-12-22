@@ -72,7 +72,7 @@ namespace GmailHelp.Controllers
                 Port = 587,
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("kumarvipin897946@gmail.com", "qinn tcbf wccc irkl") // Use App Password
+                Credentials = new NetworkCredential("/*Enter your Email here*/", "/*Write your gmail password*/") // Use App Password
             };
 
             smtp.Send(mm);
