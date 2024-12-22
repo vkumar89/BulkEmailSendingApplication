@@ -1,0 +1,292 @@
+﻿@{
+    ViewBag.Title = "Send Emails";
+}
+
+<div class="text-center " style="height:200px;">
+<h2 class="bg-warning text-center">Bulk Email Sending Application</h2>
+<button id="sendEmailsButton" class="btn btn-success mt-xxl-5 " style="width:300px;height:50px">Send Emails</button>
+</div>
+
+
+
+
+
+<div >
+    <div id="notificationPanel">
+        <h4 class="text-center m-xxl-5">Status Of Emails</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="notificationBody">
+
+</tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let emailIndex = 0;
+
+        $("#sendEmailsButton").click(function () {
+            $("#sendEmailsButton").prop("disabled", true);
+            sendNextEmail(); // Start sending emails
+        });
+
+        function sendNextEmail() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SendSingleEmail", "EmailSetUp")',
+                data: { emailIndex: emailIndex },
+                success: function (response) {
+                    if (response.success) {
+
+                        $("#notificationBody").append("<tr><td>" + response.message + "</td></tr>");
+                        emailIndex++;
+                        sendNextEmail(); // Send the next email after the current one completes
+                    } else {
+                        $("#notificationBody").append("<tr><td style='color:red;'>" + response.message + "</td></tr>");
+                    }
+                },
+                error: function () {
+                    $("#notificationBody").append("<tr><td style='color:red;'>Error sending email.</td></tr>");
+                }
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--@{
+    ViewBag.Title = "Send Emails";
+}
+
+<div class="text-center" style="height:200px;">
+    <h2 class="bg-warning text-center">Bulk Email Sending Application</h2>
+    <button id="sendEmailsButton" class="btn btn-success mt-xxl-5" style="width:300px;height:50px">Send Emails</button>
+</div>
+
+<div class="text-center mt-4">
+    <h4>Upload File (Excel or PDF)</h4>
+    <form id="fileUploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="fileInput" accept=".pdf, .xls, .xlsx" class="form-control" style="width:300px;margin:auto;">
+        <button type="button" id="uploadFileButton" class="btn btn-primary mt-3">Upload and Send Emails</button>
+    </form>
+</div>
+
+<div>
+    <div id="notificationPanel">
+        <h4 class="text-center m-xxl-5">Status Of Emails</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="notificationBody">-->
+                <!-- Notifications will be dynamically added here -->
+            <!--</tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let emailIndex = 0;
+
+        $("#sendEmailsButton").click(function () {
+            $("#sendEmailsButton").prop("disabled", true);
+            sendNextEmail(); // Start sending emails
+        });
+
+        $("#uploadFileButton").click(function () {
+            let formData = new FormData($("#fileUploadForm")[0]);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UploadFileAndSendEmails", "EmailSetUp")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        $("#notificationBody").append("<tr><td>" + response.message + "</td></tr>");
+                    } else {
+                        $("#notificationBody").append("<tr><td style='color:red;'>" + response.message + "</td></tr>");
+                    }
+                },
+                error: function () {
+                    $("#notificationBody").append("<tr><td style='color:red;'>Error uploading file.</td></tr>");
+                }
+            });
+        });
+
+        function sendNextEmail() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SendSingleEmail", "EmailSetUp")',
+                data: { emailIndex: emailIndex },
+                success: function (response) {
+                    if (response.success) {
+                        $("#notificationBody").append("<tr><td>" + response.message + "</td></tr>");
+                        emailIndex++;
+                        sendNextEmail(); // Send the next email after the current one completes
+                    } else {
+                        $("#notificationBody").append("<tr><td style='color:red;'>" + response.message + "</td></tr>");
+                    }
+                },
+                error: function () {
+                    $("#notificationBody").append("<tr><td style='color:red;'>Error sending email.</td></tr>");
+                }
+            });
+        }
+    });
+</script>-->
